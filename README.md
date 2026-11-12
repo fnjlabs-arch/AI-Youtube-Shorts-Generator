@@ -1,6 +1,5 @@
-# AI YouTube Shorts Generator
+# SadSha Shorts
 
-[![Powered by MuAPI](https://img.shields.io/badge/Powered%20by-MuAPI-6366f1?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMSAxNHYtNGgtMnYtMmg0djZoLTJ6bTAtOFY2aDJ2MmgtMnoiLz48L3N2Zz4=)](https://muapi.ai?utm_source=github&utm_medium=badge&utm_campaign=ai-youtube-shorts-generator)
 
 
 **The open-source alternative to Opus Clip, Vidyo.ai, Klap, SubMagic, 2short.ai, and other AI clipping tools.** Drop in any long-form YouTube video and get back ranked, viral-ready 9:16 shorts — for free, with no per-clip credits, no watermarks, and full control over the highlight algorithm.
@@ -70,7 +69,7 @@ Don't want to self-host? The [AI Clipping API](https://muapi.ai/playground/ai-cl
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/SamurAIGPT/AI-Youtube-Shorts-Generator.git
+   git clone https://github.com/fnjlabs-arch/AI-Youtube-Shorts-Generator.git
    cd AI-Youtube-Shorts-Generator
    ```
 
@@ -143,7 +142,7 @@ python main.py "file:///Users/you/Videos/input.mp4" --mode local
 The Python API works the same way:
 
 ```python
-from shorts_generator import generate_shorts
+from sadsha_shorts import generate_shorts
 
 result = generate_shorts(
     "/Users/you/Videos/input.mp4",
@@ -247,7 +246,7 @@ Highlights:    7 candidates → kept top 3
 ## Configuration
 
 ### Highlight selection criteria
-Edit `shorts_generator/highlights.py`:
+Edit `sadsha_shorts/highlights.py`:
 - **Virality framework**: `VIRALITY_CRITERIA` — the ranked list of signals the LLM optimizes for
 - **System prompt**: `HIGHLIGHT_SYSTEM_PROMPT` — duration sweet spot, hook rules, JSON schema
 - **Chunk size**: `CHUNK_SIZE_SECONDS` (default 1200) — chunk length for long videos
@@ -255,7 +254,7 @@ Edit `shorts_generator/highlights.py`:
 - **Chunk overlap**: `CHUNK_OVERLAP_SECONDS` (default 60) — overlap between chunks so cross-boundary clips aren't missed
 
 ### Polling / timeout
-Edit `shorts_generator/config.py` (or set env vars):
+Edit `sadsha_shorts/config.py` (or set env vars):
 - `MUAPI_POLL_INTERVAL` (default 5s) — seconds between job-status polls
 - `MUAPI_POLL_TIMEOUT` (default 1800s) — give up after this long
 
@@ -270,7 +269,7 @@ AI-Youtube-Shorts-Generator/
 ├── requirements.txt              core deps (api mode)
 ├── requirements-local.txt        optional deps for --mode local
 ├── .env.example
-└── shorts_generator/
+└── sadsha_shorts/
     ├── config.py                 env / settings (MuAPI + local LLM + Whisper)
     ├── muapi.py                  generic submit + poll wrapper
     ├── downloader.py             API mode: YouTube download via MuAPI

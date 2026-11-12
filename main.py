@@ -15,11 +15,11 @@ if hasattr(sys.stdout, "reconfigure"):
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
-from shorts_generator import generate_shorts
+from sadsha_shorts import generate_shorts
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="AI YouTube Shorts Generator")
+    parser = argparse.ArgumentParser(description="SadSha Shorts")
     parser.add_argument("url", help="YouTube URL, file:// URL, or local file path")
     parser.add_argument(
         "--mode",

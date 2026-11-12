@@ -1,13 +1,13 @@
 ---
-name: youtube-shorts-generator
+name: sadsha-shorts
 description: Generate viral 9:16 YouTube Shorts (or TikTok/Reels clips) from a long-form YouTube URL or local video. Triggers on requests like "make shorts from this video", "extract viral clips from this YouTube link", "auto-clip this podcast", "find the best moments and crop vertical". Pipeline downloads the source, transcribes via MuAPI /openai-whisper, ranks highlights through a virality framework (hook / emotional peak / opinion bomb / revelation / conflict / quotable / story peak / practical value), dedupes overlapping candidates, and vertically auto-crops the top N as mp4s.
 ---
 
-# YouTube Shorts Generator
+# SadSha Shorts
 
 End-to-end pipeline that turns one long video into N viral-ready vertical clips. Each clip ships with a viral score (0–100), an opening hook line, and a one-sentence reason it should perform.
 
-Reference implementation: https://github.com/SamurAIGPT/AI-Youtube-Shorts-Generator
+Reference implementation: https://github.com/fnjlabs-arch/AI-Youtube-Shorts-Generator
 
 ## When to use this skill
 
@@ -35,11 +35,11 @@ If the user gave a URL and nothing else, use defaults and don't block on questio
 - A MuAPI key — set `MUAPI_API_KEY` in `.env`. Powers download, transcription, highlight ranking, and clipping. If missing, stop and ask the user for it; do not invent one.
 - `pip install -r requirements.txt` inside a venv
 
-If the repo isn't cloned yet, clone `https://github.com/SamurAIGPT/AI-Youtube-Shorts-Generator.git` into the working directory.
+If the repo isn't cloned yet, clone `https://github.com/fnjlabs-arch/AI-Youtube-Shorts-Generator.git` into the working directory.
 
 ## Pipeline (what to execute)
 
-Run the eight stages in order. Each maps to a module in `shorts_generator/`.
+Run the eight stages in order. Each maps to a module in `sadsha_shorts/`.
 
 1. **Download** (`downloader.py`) — pull the source video at the requested resolution (`360`/`480`/`720`/`1080`, default `720`).
 2. **Transcribe** (`transcriber.py`) — MuAPI `/openai-whisper` runs Whisper server-side and returns timestamped `verbose_json` segments. Billed per minute of audio.
@@ -73,7 +73,7 @@ python main.py "<YOUTUBE_URL>" \
 Python API (when embedding in another pipeline):
 
 ```python
-from shorts_generator import generate_shorts
+from sadsha_shorts import generate_shorts
 
 result = generate_shorts(
     "<URL>",
@@ -125,13 +125,13 @@ When reporting back to the user, surface for each clip: rank, score, time range,
 
 ## Tunable knobs
 
-- `shorts_generator/highlights.py`
+- `sadsha_shorts/highlights.py`
   - `VIRALITY_CRITERIA` — reorder or extend signals
   - `HIGHLIGHT_SYSTEM_PROMPT` — duration sweet spot, hook rules, JSON schema
   - `CHUNK_SIZE_SECONDS` — 1200s default
   - `LONG_VIDEO_THRESHOLD` — 1800s default
   - `CHUNK_OVERLAP_SECONDS` — 60s default
-- `shorts_generator/config.py` (or env vars)
+- `sadsha_shorts/config.py` (or env vars)
   - `MUAPI_POLL_INTERVAL` — 5s
   - `MUAPI_POLL_TIMEOUT` — 1800s
 
